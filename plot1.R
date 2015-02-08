@@ -5,13 +5,8 @@ df <- read.table(fileName, sep=';', header=TRUE, na.strings='?')
 dd <- data.frame()
 
 # select data rows with dates that we need
-for (i in 1:nrow(df))
-{
-  if (df$Date[i] == '2/1/2007' | df$Date[i] == '2/2/2007')
-  {
-    dd <- rbind(dd, df[i,]) 
-  }
-}
+df$Date <- as.Date(df$Date, format="%d/%m/%Y")
+dd <- subset(df, subset=(Date >= "2007-02-01" & Date <= "2007-02-02"))
 
 rm(df) #we don't need it any more
 
